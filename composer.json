@@ -1,0 +1,33 @@
+{
+  "name": "timedoor/laravel-rest-api-permission",
+  "description": "Extented from spatie/laravel-permission, this package help developer to authorize user permission based from URI and request method like REST API.",
+  "type": "library",
+  "license": "MIT",
+  "authors": [
+      {
+          "name": "Adrian Edy",
+          "email": "adrianedypratama@gmail.com"
+      }
+  ],
+  "require": {
+    "php" : "^7.3|^8.0|^8.1",
+    "spatie/laravel-permission": "^5.5"
+  },
+  "autoload": {
+    "psr-4": {
+      "Timedoor\\LaravelRestApiPermission\\": "src/"
+    },
+    "files": [
+        "src/helpers.php"
+    ]
+  },
+  "extra": {
+      "laravel": {
+          "providers": [
+              "Timedoor\\LaravelRestApiPermission\\LaravelRestApiPermissionServiceProvider"
+          ]
+      }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
