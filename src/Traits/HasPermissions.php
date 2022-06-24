@@ -2,8 +2,14 @@
 
 namespace Timedoor\LaravelRestApiPermission\Traits;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Spatie\Permission\PermissionRegistrar;
+use Spatie\Permission\Traits\HasPermissions as SpatieHasPermissions;
+
 trait HasPermissions
 {
+    use SpatieHasPermissions;
+    
     /**
      * Grant the given route permission to a role.
      *
@@ -64,5 +70,25 @@ trait HasPermissions
         $permission = getRoutePermissionName($uri, $method);
 
         return $this->hasPermissionTo($permission, $guard);
+    }
+
+    /**
+     * A model may have multiple direct permissions.
+     */
+    public function permissions(): BelongsToMany
+    {
+        $relation = $this->morphToMany(
+            config('permission.models.permission'),
+            'model',
+            config('permission.table_names.model_has_permissions'),
+            config('permission.column_names.model_morph_key'),
+            PermissionRegistrar::$pivotPermission
+        );
+
+        if (! PermissionRegistrar::$teams) {
+            return $relation;
+        }
+
+        return $relation->wherePivot(PermissionRegistrar::$teamsKey, getPermissionsTeamId());
     }
 }

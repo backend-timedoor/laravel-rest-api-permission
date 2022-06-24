@@ -2,8 +2,11 @@
 
 namespace Timedoor\LaravelRestApiPermission\Models;
 
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Timedoor\LaravelRestApiPermission\Traits\HasRoles;
 use Spatie\Permission\Models\Permission as SpatiePermission;
+use Spatie\Permission\Contracts\Permission as PermissionContract;
+use Spatie\Permission\PermissionRegistrar;
 
 class Permission extends SpatiePermission
 {
@@ -65,5 +68,32 @@ class Permission extends SpatiePermission
         unset($attributes['method']);
 
         return $attributes;
+    }
+
+    /**
+     * A permission can be applied to roles.
+     */
+    public function roles(): BelongsToMany
+    {
+        return $this->belongsToMany(
+            config('permission.models.role'),
+            config('permission.table_names.role_has_permissions'),
+            PermissionRegistrar::$pivotPermission,
+            PermissionRegistrar::$pivotRole
+        );
+    }
+
+    /**
+     * A permission belongs to some users of the model associated with its guard.
+     */
+    public function users(): BelongsToMany
+    {
+        return $this->morphedByMany(
+            getModelForGuard($this->attributes['guard_name']),
+            'model',
+            config('permission.table_names.model_has_permissions'),
+            PermissionRegistrar::$pivotPermission,
+            config('permission.column_names.model_morph_key')
+        );
     }
 }
