@@ -50,7 +50,7 @@ For the `uri` value use string provided from one of the below codes for accurate
 ```php
 \Route::current()->uri(); // Return current route URI.
 
-collect(\Route::getRoutes())->map(function ($route) { return $route->uri(); } // Listing all registered route URI.
+collect(\Route::getRoutes())->map(function ($route) { return $route->uri(); }) // Listing all registered route URI.
 ```
 
 In the database, the permission name will be stored as `rest-api>>api/user/>>*` (if the second parameter isn't provided it will be stored as `*`) or `rest-api>>api/user/{id}/>>POST`, you can access it with default `spatie/laravel-permission` utility like:

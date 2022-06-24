@@ -12,7 +12,7 @@ if (! function_exists('getRoutePermissionName')) {
         $prefix = config('permission.rest-api.prefix');
         $separator = config('permission.rest-api.separator');
 
-        return $prefix.$connector.$uri.$separator.strtoupper($method);
+        return $prefix.$separator.$uri.$separator.strtoupper($method);
     }
 }
 
@@ -41,7 +41,7 @@ if (! function_exists('getRoutePermissionNameArray')) {
     function getRoutePermissionNameArray($permissions) 
     {       
         return collect($permissions)
-            ->map(function ($permission) use ($prefix, $connector) {
+            ->map(function ($permission) {
                 $uri = $permission['uri'];
                 $method = $permission['method'] ?? '*';
 
