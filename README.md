@@ -78,6 +78,12 @@ Permission::findByNameForRoute('api/user/{id}', 'POST');
 
 Permission::findOrCreateForRoute('api/user/{id}', 'POST');
 
+// Scope a query to only include rest api permissions.
+Permission::restApi()->get();
+
+// Scope a query to not include rest api permissions.
+Permission::withoutRestApi()->get();
+
 // You can call below methods from role instance too.
 $user->givePermissionForRoute('api/user/{id}', 'POST');
 

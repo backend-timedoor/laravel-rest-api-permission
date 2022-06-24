@@ -9,10 +9,29 @@ if (! function_exists('getRoutePermissionName')) {
      */
     function getRoutePermissionName($uri, $method = "*") 
     {        
+        $prefix = getRoutePermissionPrefix()['prefix'];
+        $separator = getRoutePermissionPrefix()['separator'];
+
+        return $prefix.$separator.$uri.$separator.strtoupper($method);
+    }
+}
+
+if (! function_exists('getRoutePermissionPrefix')) {
+    /**
+     * @param bool $concat
+     *
+     * @return array|string
+     */
+    function getRoutePermissionPrefix($concat = false) 
+    {        
         $prefix = config('permission.rest-api.prefix');
         $separator = config('permission.rest-api.separator');
 
-        return $prefix.$separator.$uri.$separator.strtoupper($method);
+        if ($concat) {
+            return $prefix.$separator;
+        }
+
+        return compact('prefix', 'separator');
     }
 }
 
@@ -20,14 +39,20 @@ if (! function_exists('routePermissionNameToArray')) {
     /**
      * @param string $name
      *
-     * @return string
+     * @return array|bool
      */
     function routePermissionNameToArray($name) 
     {        
-        $separator = config('permission.rest-api.separator');
-        list($prefix, $uri, $method) = explode($separator, $name);
+        $prefix = getRoutePermissionPrefix()['prefix'];
+        $separator = getRoutePermissionPrefix()['separator'];
 
-        return compact('prefix', 'uri', 'method');
+        if (strpos($name, $prefix.$separator) === 0) {
+            list($prefix, $uri, $method) = explode($separator, $name);
+
+            return compact('uri', 'method');
+        }
+
+        return false;
     }
 }
 

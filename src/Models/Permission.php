@@ -11,6 +11,8 @@ use Spatie\Permission\PermissionRegistrar;
 class Permission extends SpatiePermission
 {
     use HasRoles;
+
+    protected $appends = ['uri', 'method'];
     
     public static function createForRoute(array $attributes = [])
     {
@@ -68,6 +70,56 @@ class Permission extends SpatiePermission
         unset($attributes['method']);
 
         return $attributes;
+    }
+
+    /**
+     * Scope a query to only include rest api permissions.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return void
+     */
+    public function scopeRestApi($query)
+    {
+        $prefix = getRoutePermissionPrefix(true);
+
+        $query->where('name', 'like', $prefix.'%');
+    }
+
+    /**
+     * Scope a query to not include rest api permissions.
+     *
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
+     * @return void
+     */
+    public function scopeWithoutRestApi($query)
+    {
+        $prefix = getRoutePermissionPrefix(true);
+
+        $query->where('name', 'not like', $prefix.'%');
+    }
+
+    /**
+     * Get the rest api permission's uri.
+     *
+     * @return string|null
+     */
+    public function getUriAttribute()
+    {
+        $array = routePermissionNameToArray($this->name);
+
+        return $array ? $array['uri'] : null;
+    }
+
+    /**
+     * Get the rest api permission's method.
+     *
+     * @return string|null
+     */
+    public function getMethodAttribute()
+    {
+        $array = routePermissionNameToArray($this->name);
+        
+        return $array ? $array['method'] : null;
     }
 
     /**
