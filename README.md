@@ -36,14 +36,14 @@ Your user must be logged in if you use this middleware, this middleware will aut
 For creating permission for REST API you can use provided permission model by this package, for example:
 
 ```php
-use Timedoor\LaravelRestApiPermission\Models\Permission;
+use Timedoor\RestApiPermission\Models\Permission;
 
 Permission::createForRoute(['uri' => 'api/user']);
 
 Permission::createForRoute(['uri' => 'api/user/{id}', 'POST']);
 ```
 
-Make sure you include the `Timedoor\LaravelRestApiPermission` for role and permission models to use the extended features for the route.
+Make sure you include the `Timedoor\RestApiPermission` for role and permission models to use the extended features for the route.
 
 For the `uri` value use string provided from one of the below codes for accurate reference.
 
@@ -68,7 +68,7 @@ $user->can(getRoutePermissionName('api/user/{id}', 'POST'));
 For manipulating route permission here's the list of other extended methods:
 
 ```php
-use Timedoor\LaravelRestApiPermission\Models\Permission;
+use Timedoor\RestApiPermission\Models\Permission;
 
 Permission::createForRoute(['uri' => 'api/user']);
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace Timedoor\LaravelRestApiPermission\Console;
+namespace Timedoor\RestApiPermission\Console;
 
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
 
-class InstallLaravelRestApiPermission extends Command
+class InstallRestApiPermission extends Command
 {
     protected $signature = 'restapipermission:install';
 
@@ -19,7 +19,7 @@ class InstallLaravelRestApiPermission extends Command
 
         $this->info('Installing timedoor/laravel-rest-api-permission...');
 
-        $this->publishLaravelRestApiPermission();
+        $this->publishRestApiPermission();
 
         $this->info('Installed Laravel Rest Api Permission');
     }
@@ -33,10 +33,10 @@ class InstallLaravelRestApiPermission extends Command
        $this->call('vendor:publish', $params);
     }
 
-    private function publishLaravelRestApiPermission()
+    private function publishRestApiPermission()
     {
         $params = [
-            '--provider' => "Timedoor\LaravelRestApiPermission\LaravelRestApiPermissionServiceProvider",
+            '--provider' => "Timedoor\RestApiPermission\RestApiPermissionServiceProvider",
             '--force' => "true",
         ];
 

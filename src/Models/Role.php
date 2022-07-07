@@ -1,9 +1,9 @@
 <?php
 
-namespace Timedoor\LaravelRestApiPermission\Models;
+namespace Timedoor\RestApiPermission\Models;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Timedoor\LaravelRestApiPermission\Traits\HasPermissions;
+use Timedoor\RestApiPermission\Traits\HasPermissions;
 use Spatie\Permission\Models\Role as SpatieRole;
 use Spatie\Permission\PermissionRegistrar;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Timedoor\LaravelRestApiPermission\Traits;
+namespace Timedoor\RestApiPermission\Traits;
 
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Spatie\Permission\PermissionRegistrar;

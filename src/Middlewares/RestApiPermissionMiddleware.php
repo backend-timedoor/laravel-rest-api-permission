@@ -1,6 +1,6 @@
 <?php
 
-namespace Timedoor\LaravelRestApiPermission\Middlewares;
+namespace Timedoor\RestApiPermission\Middlewares;
 
 use Closure;
 use Spatie\Permission\Exceptions\UnauthorizedException;

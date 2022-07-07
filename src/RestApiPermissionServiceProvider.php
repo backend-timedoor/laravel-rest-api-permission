@@ -1,13 +1,13 @@
 <?php
 
-namespace Timedoor\LaravelRestApiPermission;
+namespace Timedoor\RestApiPermission;
 
-use Timedoor\LaravelRestApiPermission\Console\InstallLaravelRestApiPermission;
-use Timedoor\LaravelRestApiPermission\Middlewares\RestApiPermissionMiddleware;
+use Timedoor\RestApiPermission\Console\InstallRestApiPermission;
+use Timedoor\RestApiPermission\Middlewares\RestApiPermissionMiddleware;
 use Illuminate\Routing\Router;
 use Illuminate\Support\ServiceProvider;
 
-class LaravelRestApiPermissionServiceProvider extends ServiceProvider
+class RestApiPermissionServiceProvider extends ServiceProvider
 {
     public function boot()
     {
@@ -41,7 +41,7 @@ class LaravelRestApiPermissionServiceProvider extends ServiceProvider
     protected function registerCommands()
     {
         $this->commands([
-            InstallLaravelRestApiPermission::class,
+            InstallRestApiPermission::class,
         ]);
     }
 
